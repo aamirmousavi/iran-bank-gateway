@@ -72,5 +72,5 @@ func Behpardakh() {
 
 - [x] Behpardakht Mellat
 - [x] Idpay
-- [] SEP Saman
-- [] Saderat
+- [ ] SEP Saman
+- [ ] Saderat
