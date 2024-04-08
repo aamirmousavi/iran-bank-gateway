@@ -119,9 +119,10 @@ func IdPay() {
 	if idpayErr != nil || err != nil {
 		log.Fatalf("idpay err = %v\t err = %v\n", idpayErr, err)
 	}
-	fmt.Printf("status code is = %v\tverify response is = %#v\n", statusCode, verifyResponse)
-
+	fmt.Printf("status code is = %v\n", statusCode)
+	fmt.Printf("verify response is = %#v\n", verifyResponse)
 }
+
 
 ```
 
