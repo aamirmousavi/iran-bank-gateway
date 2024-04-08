@@ -1,11 +1,3 @@
-# Iran Bank Gateway
-## Contents
-- [Gateways](#gateways)
-    - [Behpardakht Mellat](#behpardakht-mellat)
-## Gateways
-
-### Behpardakht
-```go
 package example
 
 import (
@@ -63,5 +55,3 @@ func Behpardakh() {
 	log.Printf("verify status code is = %v\n", statusCode)
 
 }
-
-```
