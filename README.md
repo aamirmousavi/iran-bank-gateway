@@ -3,6 +3,7 @@
 - [Gateways](#gateways)
     - [Behpardakht Mellat](#behpardakht-mellat)
 	- [Idpay](https://github.com/aamirmousavi/iran-bank-gateway/blob/master/_example/idpay.go)
+	- [Novinpal](https://github.com/aamirmousavi/iran-bank-gateway/blob/master/_example/novinpal.go)
 - [TODO](#todo)
 ## Gateways
 [Examples](https://github.com/aamirmousavi/iran-bank-gateway/tree/master/_example)
@@ -72,5 +73,7 @@ func Behpardakh() {
 
 - [x] Behpardakht Mellat
 - [x] Idpay
+- [x] Novinpal
 - [ ] SEP Saman
 - [ ] Saderat
+- [ ] Pasargad
