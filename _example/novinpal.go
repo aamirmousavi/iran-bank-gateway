@@ -33,7 +33,7 @@ func Novinpal() {
 		),
 	)
 	if novipalErr != nil || err != nil {
-		log.Fatalf("novinpal err = %v\t err = %v\n", novipalErr, err)
+		log.Fatalf("novinpal err = %#v\t err = %v\n", novipalErr, err)
 	}
 	fmt.Printf("status code is = %v\n", statusCode)
 	fmt.Printf("payment response is = %#v\n", paymentResponse)

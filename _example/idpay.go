@@ -35,7 +35,7 @@ func IdPay() {
 		),
 	)
 	if idpayErr != nil || err != nil {
-		log.Fatalf("idpay err = %v\t err = %v\n", idpayErr, err)
+		log.Fatalf("idpay err = %#v\t err = %v\n", idpayErr, err)
 	}
 	fmt.Printf("status code is = %v\npayment response is = %#v\n", statusCode, paymentResponse)
 
