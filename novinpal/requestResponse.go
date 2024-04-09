@@ -4,7 +4,7 @@ import "encoding/json"
 
 type ErrorResponse struct {
 	Status           int    `json:"status"`
-	ErrorCode        int    `json:"errorCode"`
+	ErrorCode        string `json:"errorCode"`
 	ErrorDescription string `json:"errorDescription"`
 }
 
