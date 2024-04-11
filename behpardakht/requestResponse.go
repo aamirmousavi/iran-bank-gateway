@@ -84,6 +84,8 @@ func (pr *paymentResponse) modifyResponse() error {
 	if len(params) > 0 {
 		if params[0] == "0" {
 			pr.responseCode = -1
+		} else if params[0] == "" {
+			return nil
 		} else {
 			code, err := strconv.Atoi(params[0])
 			if err != nil {
