@@ -2,7 +2,6 @@ package behpardakht
 
 import (
 	"encoding/xml"
-	"fmt"
 	"strconv"
 	"strings"
 	"time"
@@ -49,7 +48,7 @@ func (pr *paymentRequest) raw(
 	return root.Marshal()
 }
 
-type PaymentResponse struct {
+type paymentResponse struct {
 	XMLName xml.Name `xml:"Envelope"`
 	Body    struct {
 		XMLName xml.Name `xml:"Body"`
@@ -60,20 +59,27 @@ type PaymentResponse struct {
 	}
 	responseCode int    `xml:"-"`
 	refId        string `xml:"-"`
+	rawResponse  []byte `xml:"-"`
 }
 
-func (pr *PaymentResponse) ResponseCode() int {
-	if pr == nil {
-		return 0
+type PaymentResponse struct {
+	ResponseCode int    `json:"response_code"`
+	RefId        string `json:"ref_id"`
+	RawResponse  string `json:"raw_response"`
+}
+
+func (pr *paymentResponse) intoJson() (*PaymentResponse, error) {
+	if err := pr.modifyResponse(); err != nil {
+		return nil, err
 	}
-	return pr.responseCode
+	return &PaymentResponse{
+		ResponseCode: pr.responseCode,
+		RefId:        pr.refId,
+		RawResponse:  string(pr.rawResponse),
+	}, nil
 }
 
-func (pr *PaymentResponse) RefId() string {
-	return pr.refId
-}
-
-func (pr *PaymentResponse) modifyResponse() error {
+func (pr *paymentResponse) modifyResponse() error {
 	params := strings.Split(pr.Body.BpPay.Return, ",")
 	if len(params) > 0 {
 		if params[0] == "0" {
@@ -126,7 +132,7 @@ func (vr *verifyRequest) raw(
 	return root.Marshal()
 }
 
-type VerifyResponse struct {
+type verifyResponse struct {
 	XMLName xml.Name `xml:"Envelope"`
 	Body    struct {
 		XMLName xml.Name `xml:"Body"`
@@ -139,15 +145,23 @@ type VerifyResponse struct {
 	rawResponse  []byte `xml:"-"`
 }
 
-func (vr *VerifyResponse) RawResponse() []byte {
-	return []byte(fmt.Sprintf(`{"response": "%s"}`, strings.ReplaceAll(string(vr.rawResponse), `"`, `\"`)))
+func (vr *verifyResponse) intoJson() (*VerifyResponse, error) {
+	if err := vr.modifyResponse(); err != nil {
+		return nil, err
+	}
+
+	return &VerifyResponse{
+		ResponseCode: vr.responseCode,
+		RawResponse:  string(vr.rawResponse),
+	}, nil
 }
 
-func (vr *VerifyResponse) ResponseCode() int {
-	return vr.responseCode
+type VerifyResponse struct {
+	ResponseCode int    `json:"response_code"`
+	RawResponse  string `json:"raw_response"`
 }
 
-func (vr *VerifyResponse) modifyResponse() error {
+func (vr *verifyResponse) modifyResponse() error {
 	if vr.Body.BpPay.Return == "0" {
 		vr.responseCode = -1
 		return nil

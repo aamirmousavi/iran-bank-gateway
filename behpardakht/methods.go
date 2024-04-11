@@ -23,20 +23,16 @@ func (hand *behpardakht) Payment(params *paymentRequest) (
 	if err != nil {
 		return nil, nil, err
 	}
-	// if status code is not 2XX we expect an error response
-	if *statusCode < 200 || *statusCode > 299 {
-		responseError := new(PaymentResponse)
-		if err = xml.Unmarshal(response, &responseError); err != nil {
-			return nil, nil, fmt.Errorf("error raw response: %v", string(response))
-		}
-		return statusCode, responseError, nil
-	}
-	result := new(PaymentResponse)
+	result := new(paymentResponse)
+	result.rawResponse = response
 	if err = xml.Unmarshal(response, &result); err != nil {
 		return statusCode, nil, fmt.Errorf("error in unmarshal response: %w", err)
 	}
-	result.modifyResponse()
-	return statusCode, result, nil
+	jsonResult, err := result.intoJson()
+	if err != nil {
+		return statusCode, nil, err
+	}
+	return statusCode, jsonResult, nil
 }
 
 func (hand *behpardakht) Verify(params *verifyRequest) (
@@ -57,19 +53,14 @@ func (hand *behpardakht) Verify(params *verifyRequest) (
 	if err != nil {
 		return nil, nil, err
 	}
-	// if status code is not 2XX we expect an error response
-	if *statusCode < 200 || *statusCode > 299 {
-		responseError := new(VerifyResponse)
-		if err = xml.Unmarshal(response, &responseError); err != nil {
-			return nil, nil, fmt.Errorf("error raw response: %v", string(response))
-		}
-		return statusCode, responseError, nil
-	}
-	result := new(VerifyResponse)
+	result := new(verifyResponse)
 	result.rawResponse = response
 	if err = xml.Unmarshal(response, &result); err != nil {
 		return statusCode, nil, fmt.Errorf("error in unmarshal response: %w", err)
 	}
-	result.modifyResponse()
-	return statusCode, result, nil
+	jsonResult, err := result.intoJson()
+	if err != nil {
+		return statusCode, nil, err
+	}
+	return statusCode, jsonResult, nil
 }
