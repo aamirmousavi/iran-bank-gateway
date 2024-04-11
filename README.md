@@ -4,6 +4,7 @@
     - [Behpardakht Mellat](#behpardakht-mellat)
 	- [Idpay](https://github.com/aamirmousavi/iran-bank-gateway/blob/master/_example/idpay.go)
 	- [Novinpal](https://github.com/aamirmousavi/iran-bank-gateway/blob/master/_example/novinpal.go)
+	- [Parsian](https://github.com/aamirmousavi/iran-bank-gateway/blob/master/_example/parsian.go)
 - [TODO](#todo)
 ## Gateways
 [Examples](https://github.com/aamirmousavi/iran-bank-gateway/tree/master/_example)
@@ -44,7 +45,7 @@ func Behpardakh() {
 	if err != nil {
 		log.Fatalf("err = %v\n", err)
 	}
-	if paymentResponse.ResponseCode() != behpardakht.Success {
+	if paymentResponse.ResponseCode != behpardakht.Success {
 		log.Fatalf("response = %#v\n", paymentResponse)
 	}
 	log.Printf("payment status code is = %v\n", statusCode)
@@ -60,13 +61,12 @@ func Behpardakh() {
 	if err != nil {
 		log.Fatalf("err = %v\n", err)
 	}
-	if verifyResponse.ResponseCode() != behpardakht.Success {
+	if verifyResponse.ResponseCode != behpardakht.Success {
 		log.Fatalf("response = %#v\n", verifyResponse)
 	}
 	log.Printf("verify status code is = %v\n", statusCode)
 
 }
-
 ```
 
 ## TODO
@@ -74,6 +74,7 @@ func Behpardakh() {
 - [x] Behpardakht Mellat
 - [x] Idpay
 - [x] Novinpal
+- [ ] Parsian
 - [ ] SEP Saman
 - [ ] Saderat
 - [ ] Pasargad

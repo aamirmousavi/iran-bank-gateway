@@ -33,7 +33,7 @@ func Behpardakh() {
 	if err != nil {
 		log.Fatalf("err = %v\n", err)
 	}
-	if paymentResponse.ResponseCode() != behpardakht.Success {
+	if paymentResponse.ResponseCode != behpardakht.Success {
 		log.Fatalf("response = %#v\n", paymentResponse)
 	}
 	log.Printf("payment status code is = %v\n", statusCode)
@@ -49,7 +49,7 @@ func Behpardakh() {
 	if err != nil {
 		log.Fatalf("err = %v\n", err)
 	}
-	if verifyResponse.ResponseCode() != behpardakht.Success {
+	if verifyResponse.ResponseCode != behpardakht.Success {
 		log.Fatalf("response = %#v\n", verifyResponse)
 	}
 	log.Printf("verify status code is = %v\n", statusCode)
