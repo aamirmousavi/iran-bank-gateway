@@ -96,7 +96,7 @@ type VerifyResponse struct {
 	PaidAt         string `json:"paidAt"`
 	CardNumber     string `json:"cardNumber"`
 	Status         string `json:"status"`
-	Amount         uint64 `json:"amount"`
+	Amount         string `json:"amount"`
 	RefNumber      string `json:"refNumber"`
 	RefId          string `json:"refId"`
 	Description    string `json:"description"`
