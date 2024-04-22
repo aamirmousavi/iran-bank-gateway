@@ -1,8 +1,9 @@
 package novinpal
 
 import (
+	"bytes"
 	"fmt"
-	"net/url"
+	"mime/multipart"
 )
 
 type ErrorResponse struct {
@@ -38,22 +39,26 @@ func NewPaymentRequest(
 
 func (pr *PaymentRequest) raw(
 	apiKey string,
-) url.Values {
-	formData := url.Values{}
-	formData.Add("api_key", apiKey)
-	formData.Add("amount", fmt.Sprint(pr.Amount))
-	formData.Add("return_url", pr.ReturnUrl)
-	formData.Add("order_id", pr.OrderId)
+) (*bytes.Buffer, error) {
+	payload := &bytes.Buffer{}
+	writer := multipart.NewWriter(payload)
+	writer.WriteField("api_key", apiKey)
+	writer.WriteField("amount", fmt.Sprint(pr.Amount))
+	writer.WriteField("return_url", pr.ReturnUrl)
+	writer.WriteField("order_id", pr.OrderId)
 	if pr.Description != nil {
-		formData.Add("description", *pr.Description)
+		writer.WriteField("description", *pr.Description)
 	}
 	if pr.Mobile != nil {
-		formData.Add("mobile", *pr.Mobile)
+		writer.WriteField("mobile", *pr.Mobile)
 	}
 	if pr.CardNumber != nil {
-		formData.Add("card_number", *pr.CardNumber)
+		writer.WriteField("card_number", *pr.CardNumber)
 	}
-	return formData
+	if err := writer.Close(); err != nil {
+		return nil, err
+	}
+	return payload, nil
 }
 
 type PaymentResponse struct {
@@ -76,11 +81,15 @@ func NewVerifyRequest(
 
 func (vr *VerifyRequest) raw(
 	apiKey string,
-) url.Values {
-	formData := url.Values{}
-	formData.Add("api_key", apiKey)
-	formData.Add("ref_id", vr.RefId)
-	return formData
+) (*bytes.Buffer, error) {
+	payload := &bytes.Buffer{}
+	writer := multipart.NewWriter(payload)
+	writer.WriteField("api_key", apiKey)
+	writer.WriteField("ref_id", vr.RefId)
+	if err := writer.Close(); err != nil {
+		return nil, err
+	}
+	return payload, nil
 }
 
 type VerifyResponse struct {
