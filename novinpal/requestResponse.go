@@ -1,6 +1,9 @@
 package novinpal
 
-import "encoding/json"
+import (
+	"fmt"
+	"net/url"
+)
 
 type ErrorResponse struct {
 	Status           int    `json:"status"`
@@ -36,8 +39,21 @@ func NewPaymentRequest(
 func (pr *PaymentRequest) raw(
 	apiKey string,
 ) ([]byte, error) {
-	pr.ApiKey = apiKey
-	return json.Marshal(pr)
+	formData := url.Values{}
+	formData.Add("api_key", apiKey)
+	formData.Add("amount", fmt.Sprint(pr.Amount))
+	formData.Add("return_url", pr.ReturnUrl)
+	formData.Add("order_id", pr.OrderId)
+	if pr.Description != nil {
+		formData.Add("description", *pr.Description)
+	}
+	if pr.Mobile != nil {
+		formData.Add("mobile", *pr.Mobile)
+	}
+	if pr.CardNumber != nil {
+		formData.Add("card_number", *pr.CardNumber)
+	}
+	return []byte(formData.Encode()), nil
 }
 
 type PaymentResponse struct {
@@ -61,8 +77,10 @@ func NewVerifyRequest(
 func (vr *VerifyRequest) raw(
 	apiKey string,
 ) ([]byte, error) {
-	vr.ApiKey = apiKey
-	return json.Marshal(vr)
+	formData := url.Values{}
+	formData.Add("api_key", apiKey)
+	formData.Add("ref_id", vr.RefId)
+	return []byte(formData.Encode()), nil
 }
 
 type VerifyResponse struct {
