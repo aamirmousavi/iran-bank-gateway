@@ -39,7 +39,7 @@ func NewPaymentRequest(
 
 func (pr *PaymentRequest) raw(
 	apiKey string,
-) (*bytes.Buffer, error) {
+) (*bytes.Buffer, string, error) {
 	payload := &bytes.Buffer{}
 	writer := multipart.NewWriter(payload)
 	writer.WriteField("api_key", apiKey)
@@ -56,9 +56,9 @@ func (pr *PaymentRequest) raw(
 		writer.WriteField("card_number", *pr.CardNumber)
 	}
 	if err := writer.Close(); err != nil {
-		return nil, err
+		return nil, "", err
 	}
-	return payload, nil
+	return payload, writer.FormDataContentType(), nil
 }
 
 type PaymentResponse struct {
@@ -81,15 +81,15 @@ func NewVerifyRequest(
 
 func (vr *VerifyRequest) raw(
 	apiKey string,
-) (*bytes.Buffer, error) {
+) (*bytes.Buffer, string, error) {
 	payload := &bytes.Buffer{}
 	writer := multipart.NewWriter(payload)
 	writer.WriteField("api_key", apiKey)
 	writer.WriteField("ref_id", vr.RefId)
 	if err := writer.Close(); err != nil {
-		return nil, err
+		return nil, "", err
 	}
-	return payload, nil
+	return payload, writer.FormDataContentType(), nil
 }
 
 type VerifyResponse struct {
