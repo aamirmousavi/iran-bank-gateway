@@ -95,7 +95,7 @@ func (vr *VerifyRequest) raw(
 type VerifyResponse struct {
 	PaidAt         string `json:"paidAt"`
 	CardNumber     string `json:"cardNumber"`
-	Status         int    `json:"status"`
+	Status         string `json:"status"`
 	Amount         uint64 `json:"amount"`
 	RefNumber      string `json:"refNumber"`
 	RefId          string `json:"refId"`
