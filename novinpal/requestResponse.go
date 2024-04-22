@@ -38,7 +38,7 @@ func NewPaymentRequest(
 
 func (pr *PaymentRequest) raw(
 	apiKey string,
-) ([]byte, error) {
+) url.Values {
 	formData := url.Values{}
 	formData.Add("api_key", apiKey)
 	formData.Add("amount", fmt.Sprint(pr.Amount))
@@ -53,7 +53,7 @@ func (pr *PaymentRequest) raw(
 	if pr.CardNumber != nil {
 		formData.Add("card_number", *pr.CardNumber)
 	}
-	return []byte(formData.Encode()), nil
+	return formData
 }
 
 type PaymentResponse struct {
@@ -76,11 +76,11 @@ func NewVerifyRequest(
 
 func (vr *VerifyRequest) raw(
 	apiKey string,
-) ([]byte, error) {
+) url.Values {
 	formData := url.Values{}
 	formData.Add("api_key", apiKey)
 	formData.Add("ref_id", vr.RefId)
-	return []byte(formData.Encode()), nil
+	return formData
 }
 
 type VerifyResponse struct {

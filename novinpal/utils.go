@@ -1,24 +1,20 @@
 package novinpal
 
 import (
-	"bytes"
 	"io"
 	"net/http"
+	"net/url"
 )
 
 func request(
-	method, url string,
-	body []byte,
+	url string,
+	formData url.Values,
 ) (
 	*int,
 	[]byte,
 	error,
 ) {
-	request, err := http.NewRequest(method, url, bytes.NewBuffer(body))
-	if err != nil {
-		return nil, nil, err
-	}
-	response, err := http.DefaultClient.Do(request)
+	response, err := http.PostForm(url, formData)
 	if err != nil {
 		return nil, nil, err
 	}

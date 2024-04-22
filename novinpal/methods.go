@@ -10,14 +10,10 @@ func (hand *novinpal) Payment(params *PaymentRequest) (*int, *PaymentResponse, *
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	payload, err := params.raw(apiKey)
-	if err != nil {
-		return nil, nil, nil, err
-	}
+	formData := params.raw(apiKey)
 	statusCode, response, err := request(
-		"POST",
 		CREATE_TRANSACTION_URL,
-		payload,
+		formData,
 	)
 	if err != nil {
 		return nil, nil, nil, err
@@ -42,14 +38,10 @@ func (hand *novinpal) Verify(params *VerifyRequest) (*int, *VerifyResponse, *Err
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	payload, err := params.raw(apiKey)
-	if err != nil {
-		return nil, nil, nil, err
-	}
+	formData := params.raw(apiKey)
 	statusCode, response, err := request(
-		"POST",
 		VERIFY_TRANSACTION_URL,
-		payload,
+		formData,
 	)
 	if err != nil {
 		return nil, nil, nil, err
