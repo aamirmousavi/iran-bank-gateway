@@ -1,6 +1,10 @@
 package novinpal
 
-import "encoding/json"
+import (
+	"bytes"
+	"fmt"
+	"mime/multipart"
+)
 
 type ErrorResponse struct {
 	Status           int    `json:"status"`
@@ -35,9 +39,26 @@ func NewPaymentRequest(
 
 func (pr *PaymentRequest) raw(
 	apiKey string,
-) ([]byte, error) {
-	pr.ApiKey = apiKey
-	return json.Marshal(pr)
+) (*bytes.Buffer, string, error) {
+	payload := &bytes.Buffer{}
+	writer := multipart.NewWriter(payload)
+	writer.WriteField("api_key", apiKey)
+	writer.WriteField("amount", fmt.Sprint(pr.Amount))
+	writer.WriteField("return_url", pr.ReturnUrl)
+	writer.WriteField("order_id", pr.OrderId)
+	if pr.Description != nil {
+		writer.WriteField("description", *pr.Description)
+	}
+	if pr.Mobile != nil {
+		writer.WriteField("mobile", *pr.Mobile)
+	}
+	if pr.CardNumber != nil {
+		writer.WriteField("card_number", *pr.CardNumber)
+	}
+	if err := writer.Close(); err != nil {
+		return nil, "", err
+	}
+	return payload, writer.FormDataContentType(), nil
 }
 
 type PaymentResponse struct {
@@ -60,16 +81,22 @@ func NewVerifyRequest(
 
 func (vr *VerifyRequest) raw(
 	apiKey string,
-) ([]byte, error) {
-	vr.ApiKey = apiKey
-	return json.Marshal(vr)
+) (*bytes.Buffer, string, error) {
+	payload := &bytes.Buffer{}
+	writer := multipart.NewWriter(payload)
+	writer.WriteField("api_key", apiKey)
+	writer.WriteField("ref_id", vr.RefId)
+	if err := writer.Close(); err != nil {
+		return nil, "", err
+	}
+	return payload, writer.FormDataContentType(), nil
 }
 
 type VerifyResponse struct {
 	PaidAt         string `json:"paidAt"`
 	CardNumber     string `json:"cardNumber"`
-	Status         int    `json:"status"`
-	Amount         uint64 `json:"amount"`
+	Status         string `json:"status"`
+	Amount         string `json:"amount"`
 	RefNumber      string `json:"refNumber"`
 	RefId          string `json:"refId"`
 	Description    string `json:"description"`

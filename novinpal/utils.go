@@ -8,16 +8,18 @@ import (
 
 func request(
 	method, url string,
-	body []byte,
+	contentType string,
+	payload *bytes.Buffer,
 ) (
 	*int,
 	[]byte,
 	error,
 ) {
-	request, err := http.NewRequest(method, url, bytes.NewBuffer(body))
+	request, err := http.NewRequest(method, url, payload)
 	if err != nil {
 		return nil, nil, err
 	}
+	request.Header.Set("Content-Type", contentType)
 	response, err := http.DefaultClient.Do(request)
 	if err != nil {
 		return nil, nil, err
