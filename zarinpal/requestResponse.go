@@ -3,12 +3,12 @@ package zarinpal
 import "encoding/json"
 
 type PaymentRequest struct {
-	MerchantID  string  `json:"merchant_id"`
-	Amount      uint64  `json:"amount"`
-	CallbackURL string  `json:"callback_url"`
-	Description string  `json:"description"`
-	Email       *string `json:"email,omitempty"`
-	Mobile      *string `json:"mobile,omitempty"`
+	MerchantID  string  `json:"MerchantID"`
+	Amount      uint64  `json:"Amount"`
+	CallbackURL string  `json:"CallbackURL"`
+	Description string  `json:"Description"`
+	Email       *string `json:"Email,omitempty"`
+	Mobile      *string `json:"Mobile,omitempty"`
 }
 
 func NewPaymentRequest(
@@ -33,14 +33,14 @@ func (pr *PaymentRequest) raw(merchantID string) ([]byte, error) {
 }
 
 type PaymentResponse struct {
-	Status    int    `json:"status"`
-	Authority string `json:"authority"`
+	Status    int    `json:"Status"`
+	Authority string `json:"Authority"`
 }
 
 type VerifyRequest struct {
-	MerchantID string `json:"merchant_id"`
-	Authority  string `json:"authority"`
-	Amount     uint64 `json:"amount"`
+	MerchantID string `json:"MerchantID"`
+	Authority  string `json:"Authority"`
+	Amount     uint64 `json:"Amount"`
 }
 
 func NewVerifyRequest(
@@ -59,6 +59,6 @@ func (vr *VerifyRequest) raw(merchantID string) ([]byte, error) {
 }
 
 type VerifyResponse struct {
-	Status int `json:"status"`
-	RefID  int `json:"ref_id"`
+	Status int `json:"Status"`
+	RefID  int `json:"RefID"`
 }
