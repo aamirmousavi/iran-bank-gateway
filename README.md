@@ -74,6 +74,7 @@ func Behpardakh() {
 - [x] Behpardakht Mellat
 - [x] Idpay
 - [x] Novinpal
+- [x] Zarinpal
 - [ ] Parsian
 - [ ] SEP Saman
 - [ ] Saderat
