@@ -5,6 +5,7 @@
 	- [Idpay](https://github.com/aamirmousavi/iran-bank-gateway/blob/master/_example/idpay.go)
 	- [Novinpal](https://github.com/aamirmousavi/iran-bank-gateway/blob/master/_example/novinpal.go)
 	- [Parsian](https://github.com/aamirmousavi/iran-bank-gateway/blob/master/_example/parsian.go)
+	- [Zarinpal](https://github.com/aamirmousavi/iran-bank-gateway/blob/master/_example/zarinpal.go)
 - [TODO](#todo)
 ## Gateways
 [Examples](https://github.com/aamirmousavi/iran-bank-gateway/tree/master/_example)
