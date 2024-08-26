@@ -41,7 +41,7 @@ func Sep() {
 	// verify (verify a transaction)
 	statusCode, verifyResponse, err := sepInstance.Verify(
 		sep.NewVerifyRequest(
-			"RefId", // ref id
+			paymentResponse.Token, // ref id
 		),
 	)
 	if err != nil {
