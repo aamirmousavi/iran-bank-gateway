@@ -19,7 +19,7 @@ func (pr *PaymentResponse) Success() bool {
 
 func NewPaymentRequest(
 	amount uint64,
-	callbackURL string,
+	redirectUrl string,
 	resNum string,
 	callNumber *string,
 ) *paymentRequest {
@@ -30,7 +30,7 @@ type paymentRequest struct {
 	TerminalId  string  `json:"terminalId"`
 	Action      string  `json:"action"`
 	Amount      uint64  `json:"amount"`
-	CallbackURL string  `json:"callbackUrl"`
+	RedirectUrl string  `json:"redirectUrl"`
 	ResNum      string  `json:"resNum"`
 	CallNumber  *string `json:"callNumber,omitempty"`
 }
