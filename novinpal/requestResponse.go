@@ -62,8 +62,8 @@ func (pr *PaymentRequest) raw(
 }
 
 type PaymentResponse struct {
-	RefId  string `json:"refId"`
-	Status int    `json:"status"`
+	RefId  int `json:"refId"`
+	Status int `json:"status"`
 }
 
 type VerifyRequest struct {
@@ -95,8 +95,8 @@ func (vr *VerifyRequest) raw(
 type VerifyResponse struct {
 	PaidAt         string `json:"paidAt"`
 	CardNumber     string `json:"cardNumber"`
-	Status         string `json:"status"`
-	Amount         string `json:"amount"`
+	Status         int    `json:"status"`
+	Amount         int    `json:"amount"`
 	RefNumber      string `json:"refNumber"`
 	RefId          string `json:"refId"`
 	Description    string `json:"description"`
