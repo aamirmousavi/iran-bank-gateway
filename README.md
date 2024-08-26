@@ -6,6 +6,7 @@
 	- [Novinpal](https://github.com/aamirmousavi/iran-bank-gateway/blob/master/_example/novinpal.go)
 	- [Parsian](https://github.com/aamirmousavi/iran-bank-gateway/blob/master/_example/parsian.go)
 	- [Zarinpal](https://github.com/aamirmousavi/iran-bank-gateway/blob/master/_example/zarinpal.go)
+	- [Sep](https://github.com/aamirmousavi/iran-bank-gateway/blob/master/_example/sep.go)
 - [TODO](#todo)
 ## Gateways
 [Examples](https://github.com/aamirmousavi/iran-bank-gateway/tree/master/_example)
@@ -76,7 +77,7 @@ func Behpardakh() {
 - [x] Idpay
 - [x] Novinpal
 - [x] Zarinpal
+- [x] SEP Saman
 - [ ] Parsian
-- [ ] SEP Saman
 - [ ] Saderat
 - [ ] Pasargad

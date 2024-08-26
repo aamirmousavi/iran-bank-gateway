@@ -41,7 +41,7 @@ func Novinpal() {
 	// verify (verify a transaction)
 	statusCode, verifyResponse, novipalErr, err := novinpalInstance.Verify(
 		novinpal.NewVerifyRequest(
-			paymentResponse.RefId, // ref id
+			fmt.Sprint(paymentResponse.RefId), // ref id
 		),
 	)
 	if novipalErr != nil || err != nil {
