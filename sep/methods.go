@@ -23,17 +23,16 @@ func (hand *sep) Payment(params *paymentRequest) (
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	// if status code is not 2XX we expect an error response
-	if *statusCode < 200 || *statusCode > 299 {
+	result := new(PaymentResponse)
+	if err := json.Unmarshal(response, &result); err != nil {
+		return nil, nil, nil, err
+	}
+	if result.Token == "" {
 		responseError := new(ErrorResponse)
 		if err := json.Unmarshal(response, &responseError); err != nil {
 			return statusCode, nil, nil, err
 		}
 		return statusCode, nil, responseError, nil
-	}
-	result := new(PaymentResponse)
-	if err := json.Unmarshal(response, &result); err != nil {
-		return nil, nil, nil, err
 	}
 	return statusCode, result, nil, nil
 }
