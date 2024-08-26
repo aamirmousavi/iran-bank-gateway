@@ -23,7 +23,12 @@ func NewPaymentRequest(
 	resNum string,
 	callNumber *string,
 ) *paymentRequest {
-	return &paymentRequest{}
+	return &paymentRequest{
+		Amount:      amount,
+		RedirectUrl: redirectUrl,
+		ResNum:      resNum,
+		CallNumber:  callNumber,
+	}
 }
 
 type paymentRequest struct {
