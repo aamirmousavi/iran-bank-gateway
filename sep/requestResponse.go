@@ -27,19 +27,19 @@ func NewPaymentRequest(
 }
 
 type paymentRequest struct {
-	TerminalId  string  `json:"terminalId"`
+	TerminalId  string  `json:"TerminalId"`
 	Action      string  `json:"action"`
-	Amount      uint64  `json:"amount"`
+	Amount      uint64  `json:"Amount"`
 	RedirectUrl string  `json:"redirectUrl"`
-	ResNum      string  `json:"resNum"`
-	CallNumber  *string `json:"callNumber,omitempty"`
+	ResNum      string  `json:"ResNum"`
+	CallNumber  *string `json:"CallNumber,omitempty"`
 }
 
 func (pr *paymentRequest) raw(
 	terminalCode string,
 ) ([]byte, error) {
 	pr.TerminalId = terminalCode
-	pr.Action = "Token"
+	pr.Action = "token"
 	return json.Marshal(pr)
 }
 
